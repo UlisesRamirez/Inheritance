@@ -25,7 +25,7 @@ namespace Inheritance.Resources {
          *                          *+- Critical Damage,
          */
     }
-
+     
     class Shield : Element {
         /* Shields are the main element for:
          *                           *+- Armor,

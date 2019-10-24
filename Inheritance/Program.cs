@@ -4,8 +4,11 @@ using Inheritance.Resources;
 namespace Inheritance {
     class Program {
         static void Main() {
-            Entity Ulises = new Player(10, "ulises");
+            Player Ulises = new Player(10, "ulises", 10);
+            Player Jhonny = new Player(20, "jhonny", 5);
             Console.WriteLine(Ulises.GetLife());
+            Ulises.Attack(Jhonny);
+            Console.WriteLine(Jhonny.GetLife());
         }
     }
 }

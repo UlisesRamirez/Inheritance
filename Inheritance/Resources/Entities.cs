@@ -4,18 +4,22 @@ using System.Text;
 
 namespace Inheritance.Resources {
     class Entity {
-        protected int life;
-        protected int armor;
-        protected int damage;
+        protected double life;
+        protected double armor;
+        protected double damage;
+        protected double critDamage;
+        protected double critChance;
+        protected double dodgChance;
+
         public void Attack(Entity target) {
-            target.TakeDamage(this.damage);
+            target.TakeDamage(this.damage, this);
         }
 
-        public void TakeDamage(int damage) {
+        public void TakeDamage(double damage, Entity attacker) {
             this.life -= damage - this.armor;
         }
 
-        public int GetLife() {
+        public double GetLife() {
             return life;
         }
 
@@ -30,7 +34,8 @@ namespace Inheritance.Resources {
         }
 
         public string Respond(Entity target) {
-            throw new NotImplementedException();
+            string output = "Hi" + target.life;
+            return output;
         }
     }
 
@@ -40,9 +45,11 @@ namespace Inheritance.Resources {
 
         private readonly List<Element> equipment = new List<Element>();
 
-        public Player(int InitialLife, string InitialName) {
+        public Player(double InitialLife, string InitialName, double InitialDamage) {
+            armor = 0;
             life = InitialLife;
             name = InitialName;
+            damage = InitialDamage;
         }
 
         /*

@@ -16,6 +16,30 @@ namespace Inheritance.Resources {
          *
          *          Some methods to include as well could be: Reforge, Enchant, or maybe an exchange?
          */
+        protected double life;
+        protected double armor;
+        protected double damage;
+        protected double critDamage;
+        protected double critChance;
+        protected double dodgChance;
+
+        protected int rarityLevel;
+
+        public Element() {
+            Random random = new Random();
+            double number = random.NextDouble();
+            
+            if (number <= 0.05) {
+                rarityLevel = 3;
+            } else {
+                if (number > 0.05 && number < 0.2) {
+                    rarityLevel = 2;
+                } else {
+                    rarityLevel = 1;
+                }
+            }
+        }
+
     }
 
     class Sword : Element {
@@ -24,6 +48,21 @@ namespace Inheritance.Resources {
          *                          *+- % Critical Chance,
          *                          *+- Critical Damage,
          */
+
+        public Sword() {
+            Random random = new Random();
+            double damageNumber = random.NextDouble();
+            double critDamageNumber = random.NextDouble();
+            double critChanceNumber = random.NextDouble();
+
+            damageNumber = damageNumber * 10 + 2;
+            critDamageNumber = critDamageNumber * 10 + 1;
+            critChanceNumber = critChanceNumber * 100 + 5;
+
+            this.damage = damageNumber * this.rarityLevel;
+            this.critChance = critChanceNumber * this.rarityLevel;
+            this.critDamage = critDamageNumber * this.rarityLevel;
+        }
     }
      
     class Shield : Element {

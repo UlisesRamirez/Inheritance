@@ -16,14 +16,14 @@ namespace Inheritance.Resources {
          *
          *          Some methods to include as well could be: Reforge, Enchant, or maybe an exchange?
          */
-        protected double life;
-        protected double armor;
-        protected double damage;
-        protected double critDamage;
-        protected double critChance;
-        protected double dodgChance;
+        protected double life = 0;
+        protected double armor = 0;
+        protected double damage = 0;
+        protected double critMult = 0;
+        protected double critChance = 0;
+        protected double dodgChance = 0;
 
-        protected int rarityLevel;
+        protected int rarityLevel = 0;
 
         public Element() {
             Random random = new Random();
@@ -40,6 +40,7 @@ namespace Inheritance.Resources {
             }
         }
 
+
     }
 
     class Sword : Element {
@@ -51,18 +52,15 @@ namespace Inheritance.Resources {
 
         public Sword() {
             Random random = new Random();
-            double damageNumber = random.NextDouble();
-            double critDamageNumber = random.NextDouble();
-            double critChanceNumber = random.NextDouble();
-
-            damageNumber = damageNumber * 10 + 2;
-            critDamageNumber = critDamageNumber * 10 + 1;
-            critChanceNumber = critChanceNumber * 100 + 5;
+            double damageNumber = random.NextDouble() * 10 + 2;
+            double critMultNumber = random.NextDouble() * 10 + 1;
+            double critChanceNumber = random.NextDouble() * 100 + 5;
 
             this.damage = damageNumber * this.rarityLevel;
             this.critChance = critChanceNumber * this.rarityLevel;
-            this.critDamage = critDamageNumber * this.rarityLevel;
+            this.critMult = critMultNumber * this.rarityLevel;
         }
+
     }
      
     class Shield : Element {
@@ -70,6 +68,15 @@ namespace Inheritance.Resources {
          *                           *+- Armor,
          *                           *+- % Dodge Chance
          */
+
+        public Shield() {
+            Random random = new Random();
+            double armorNumber = random.NextDouble() * 10 + 5;
+            double dodgChanceNumber = random.NextDouble() * 100 + 5;
+
+            this.armor = armorNumber * this.rarityLevel;
+            this.dodgChance = dodgChanceNumber * this.rarityLevel;
+        }
     }
 
     class Armor : Element {
@@ -78,5 +85,15 @@ namespace Inheritance.Resources {
          *                           *+- Armor,
          *                           *+- % Dodge Chance
          */
+         public Armor() {
+            Random random = new Random();
+            double lifeNumber = random.NextDouble() * 10 + 10;
+            double armorNumber = random.NextDouble() * 10 + 5;
+            double dodgChanceNumber = random.NextDouble() * 100 + 3;
+
+            this.life = lifeNumber * this.rarityLevel;
+            this.armor = armorNumber * this.rarityLevel;
+            this.dodgChance = dodgChanceNumber * this.rarityLevel;
+        }
     }
 }

@@ -9,6 +9,11 @@ namespace Inheritance {
             Console.WriteLine(Ulises.GetLife());
             Ulises.Attack(Jhonny);
             Console.WriteLine(Jhonny.GetLife());
+            Sword elekid = new Sword();
+            Shield caros = new Shield();
+
+            Ulises.Equip(elekid);
+            Jhonny.Equip(caros);
         }
     }
 }

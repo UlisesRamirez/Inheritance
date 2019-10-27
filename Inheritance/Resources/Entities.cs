@@ -7,16 +7,35 @@ namespace Inheritance.Resources {
         protected double life;
         protected double armor;
         protected double damage;
-        protected double critDamage;
-        protected double critChance;
-        protected double dodgChance;
+        protected double critMult;
+        protected double critChance = 5;
+        protected double dodgChance = 5;
+        protected double currency;
 
         public void Attack(Entity target) {
-            target.TakeDamage(this.damage, this);
+            Random random = new Random();
+            double chance = random.NextDouble() * 100;
+
+            if (chance < this.critChance) {
+                target.TakeDamage(this.damage * this.critMult, this);
+            } else {
+                target.TakeDamage(this.damage, this);
+            }            
         }
 
         public void TakeDamage(double damage, Entity attacker) {
-            this.life -= damage - this.armor;
+            Random random = new Random();
+            double chance = random.NextDouble() * 100;
+
+            if (chance < this.dodgChance) {
+                Console.WriteLine("dodged.");
+            } else {
+                this.life -= damage - this.armor;
+            }
+            
+            if (this.life - damage <= 0) {
+                attacker.currency += this.currency;
+            }
         }
 
         public double GetLife() {
@@ -40,13 +59,13 @@ namespace Inheritance.Resources {
     }
 
     class Player : Entity {
-        public string name; // Given in-code for ease sake
-        public double currency; // Dropped by the mobs when they die
+        public string name; // Given in-code for ease sake        
 
         private readonly List<Element> equipment = new List<Element>();
 
         public Player(double InitialLife, string InitialName, double InitialDamage) {
             armor = 0;
+            critMult = 2;
             life = InitialLife;
             name = InitialName;
             damage = InitialDamage;

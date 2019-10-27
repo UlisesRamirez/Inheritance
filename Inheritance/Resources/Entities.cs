@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Inheritance.Resources {
     class Entity {
-        protected double life;
-        protected double armor;
-        protected double damage;
-        protected double critMult;
-        protected double critChance = 5;
-        protected double dodgChance = 5;
-        protected double currency;
+        public double life;
+        public double armor;
+        public double damage;
+        public double critMult;
+        public double critChance = 5;
+        public double dodgeChance = 5;
+        public double currency;
 
         public void Attack(Entity target) {
             Random random = new Random();
-            double chance = random.NextDouble() * 100;
+            double chance = random.Next(0, 100);
 
             if (chance < this.critChance) {
                 target.TakeDamage(this.damage * this.critMult, this);
@@ -25,9 +25,9 @@ namespace Inheritance.Resources {
 
         public void TakeDamage(double damage, Entity attacker) {
             Random random = new Random();
-            double chance = random.NextDouble() * 100;
+            double chance = random.Next(0, 100);
 
-            if (chance < this.dodgChance) {
+            if (chance < this.dodgeChance) {
                 Console.WriteLine("dodged.");
             } else {
                 this.life -= damage - this.armor;
@@ -36,10 +36,6 @@ namespace Inheritance.Resources {
             if (this.life - damage <= 0) {
                 attacker.currency += this.currency;
             }
-        }
-
-        public double GetLife() {
-            return life;
         }
 
         public string Interact(Entity target) {
@@ -76,20 +72,12 @@ namespace Inheritance.Resources {
          */
 
         public void Equip(Element element) {
-            /* 
-             * When called the function should read through the element data,
-             * and add the corresponding values to the matching holders
-             * 
-             */
+            element.Equipping(this);           
             equipment.Add(element);
         }
 
         public void Unequip(Element element) {
-            /* 
-             * When called the function should read through the element data,
-             * and remove the once added to the player
-             * 
-             */
+            element.Unequipping(this);
             equipment.Remove(element);
         }
 

@@ -4,24 +4,12 @@ using System.Text;
 
 namespace Inheritance.Resources {
     class Element {
-        /*
-         * TODO: Create BaseLine of the elements, to include the type of variables to have in account are:
-         *                                                                  *+- Life,
-         *                                                                  *+- Armor,
-         *                                                                  *+- Damage,
-         *                                                                  *+- % Critical Chance,
-         *                                                                  *+- Critical Damage,
-         *                                                                  *+- % Dodge Chance
-         *                * Rarities, should affect the element 
-         *
-         *          Some methods to include as well could be: Reforge, Enchant, or maybe an exchange?
-         */
         protected double life = 0;
         protected double armor = 0;
         protected double damage = 0;
         protected double critMult = 0;
         protected double critChance = 0;
-        protected double dodgChance = 0;
+        protected double dodgeChance = 0;
 
         protected int rarityLevel = 0;
 
@@ -40,16 +28,26 @@ namespace Inheritance.Resources {
             }
         }
 
+        public void Equipping(Entity target) {
+            target.life += this.life;
+            target.armor += this.armor;
+            target.damage += this.damage;
+            target.critMult += this.critMult;
+            target.critChance += this.critChance;
+            target.dodgeChance += this.dodgeChance;
+        }
 
+        public void Unequipping(Entity target) {
+            target.life -= this.life;
+            target.armor -= this.armor;
+            target.damage -= this.damage;
+            target.critMult -= this.critMult;
+            target.critChance -= this.critChance;
+            target.dodgeChance -= this.dodgeChance;
+        }
     }
 
     class Sword : Element {
-        /* Swords are the main element for: 
-         *                          *+- Damage,
-         *                          *+- % Critical Chance,
-         *                          *+- Critical Damage,
-         */
-
         public Sword() {
             Random random = new Random();
             double damageNumber = random.NextDouble() * 10 + 2;
@@ -64,27 +62,17 @@ namespace Inheritance.Resources {
     }
      
     class Shield : Element {
-        /* Shields are the main element for:
-         *                           *+- Armor,
-         *                           *+- % Dodge Chance
-         */
-
         public Shield() {
             Random random = new Random();
             double armorNumber = random.NextDouble() * 10 + 5;
             double dodgChanceNumber = random.NextDouble() * 100 + 5;
 
             this.armor = armorNumber * this.rarityLevel;
-            this.dodgChance = dodgChanceNumber * this.rarityLevel;
+            this.dodgeChance = dodgChanceNumber * this.rarityLevel;
         }
     }
 
     class Armor : Element {
-        /* Armors are the main element for:
-         *                           *+- Life,
-         *                           *+- Armor,
-         *                           *+- % Dodge Chance
-         */
          public Armor() {
             Random random = new Random();
             double lifeNumber = random.NextDouble() * 10 + 10;
@@ -93,7 +81,7 @@ namespace Inheritance.Resources {
 
             this.life = lifeNumber * this.rarityLevel;
             this.armor = armorNumber * this.rarityLevel;
-            this.dodgChance = dodgChanceNumber * this.rarityLevel;
+            this.dodgeChance = dodgChanceNumber * this.rarityLevel;
         }
     }
 }
